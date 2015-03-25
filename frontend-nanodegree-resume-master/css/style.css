@@ -1,7 +1,7 @@
 * {
   padding:0;
   margin:0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 .clearfix {
@@ -21,9 +21,9 @@ h1 {
 }
 
 h2 {
-  font-weight: bold;
+  font-weight: bolder;
   font-size: 24px;
-  color: #999999;
+  color: #F5A623;
   line-height: 29px;
   padding: 10px;
 }
@@ -123,8 +123,12 @@ a {
 
 /* TODO: Replace with image later */
 #header {
-  background-color: #484848;
+  //background-color: #484848;
+  background-image: url("../images/backgroundImage.jpg");
+
 }
+
+
 
 .flex-box {
   display: -webkit-flex;

@@ -12,7 +12,34 @@ var bio= {
 	},
 	"pictureURL":"http://placehold.it/300x250",
 	"welcomeMessage":"welcome to my Resume page",
-	"skills":["JavaScript","HTML","CSS","jQuery"]
+	"skills":["JavaScript","HTML","CSS","jQuery"],
+	"display" : function() {
+     	// Add name and role to page
+        $('#header').append(HTMLheaderName.replace("%data%",bio.name));
+		$('#header').append(HTMLheaderRole.replace("%data%",bio.role));
+		$('h1').insertBefore("#topContacts");
+		$('span').insertBefore("#topContacts");
+ 		// Add contact info to page
+ 		//$('#topContacts').append(HTMLcontactGeneric.replace("%contacts%","Contact Information"));
+ 		$('#topContacts').append(HTMLmobile.replace("%data%",bio.contacts.mobile));
+ 		$('#topContacts').append(HTMLemail.replace("%data%",bio.contacts.email));
+ 		$('#topContacts').append(HTMLlocation.replace("%data%",bio.contacts.location));
+ 		$('#topContacts').append(HTMLtwitter.replace("%data%",bio.contacts.twitter));
+ 		$('#topContacts').append(HTMLgithub.replace("%data%",bio.contacts.github));
+
+		// Add other things to header 
+
+		$('#header').append(HTMLbioPic.replace("%data%",bio.pictureURL));
+ 		$('#header').append(HTMLWelcomeMsg.replace("%data%",bio.welcomeMessage));
+
+		if(bio.skills.length >0){
+			$('#header:Last').append(HTMLskillsStart);
+    		$('#skills:Last').append(HTMLskills.replace('%data%',bio.skills[0]));
+    		$('.flex-item:Last').append(HTMLskills.replace('%data%',bio.skills[1]));
+    		$('.flex-item:Last').append(HTMLskills.replace('%data%',bio.skills[2]));
+    		$('.flex-item:Last').append(HTMLskills.replace('%data%',bio.skills[3]));
+		}
+	}
 };
 
 var work={
@@ -35,7 +62,20 @@ var work={
 	    "location":"Hyderabad,Telangana,India",
 	    "dates":"jan 2007 - sept 2007",
 	    "description":"swe for dataware hourse software"
-	}]
+	}],
+
+    "display" : function() {
+    	$('#workExperience').append(HTMLworkStart);
+	    for(jobs in work.jobs) {
+    	$('.work-entry').append(HTMLworkEmployer.replace('%data%',work.jobs[jobs].employer)+HTMLworkTitle.replace('%data%',work.jobs[jobs].title));
+    	$('.work-entry:Last').append(HTMLworkDates.replace('%data%',work.jobs[jobs].dates));
+    	$('.work-entry:Last').append(HTMLworkLocation.replace('%data%',work.jobs[jobs].location));
+     	$('.work-entry:Last').append(HTMLworkDescription.replace('%data%',work.jobs[jobs].description));
+        }
+
+	}
+
+
 };
 
 
@@ -93,66 +133,20 @@ var education = {
 	    "school":"school2",
 	    "dates":"02",
 	    "url":"http://google.com"
-	}]
-};
-
-
-
-
-// Add name and role to page
-$('#header').append(HTMLheaderName.replace("%data%",bio.name));
-$('#header').append(HTMLheaderRole.replace("%data%",bio.role));
-$('h1').insertBefore("#topContacts");
-$('span').insertBefore("#topContacts");
- // Add contact info to page
- //$('#topContacts').append(HTMLcontactGeneric.replace("%contacts%","Contact Information"));
- $('#topContacts').append(HTMLmobile.replace("%data%",bio.contacts.mobile));
- $('#topContacts').append(HTMLemail.replace("%data%",bio.contacts.email));
- $('#topContacts').append(HTMLlocation.replace("%data%",bio.contacts.location));
- $('#topContacts').append(HTMLtwitter.replace("%data%",bio.contacts.twitter));
- $('#topContacts').append(HTMLgithub.replace("%data%",bio.contacts.github));
-
-// Add other things to header 
-
- $('#header').append(HTMLbioPic.replace("%data%",bio.pictureURL));
- $('#header').append(HTMLWelcomeMsg.replace("%data%",bio.welcomeMessage));
-
-// show skills on page 
-if(bio.skills.length >0){
-	$('#header:Last').append(HTMLskillsStart);
-    $('#skills:Last').append(HTMLskills.replace('%data%',bio.skills[0]));
-    $('.flex-item:Last').append(HTMLskills.replace('%data%',bio.skills[1]));
-    $('.flex-item:Last').append(HTMLskills.replace('%data%',bio.skills[2]));
-    $('.flex-item:Last').append(HTMLskills.replace('%data%',bio.skills[3]));
-}
-
-function displayWork() {
-	$('#workExperience').append(HTMLworkStart);
-	for(jobs in work.jobs) {
-    	$('.work-entry').append(HTMLworkEmployer.replace('%data%',work.jobs[jobs].employer)+HTMLworkTitle.replace('%data%',work.jobs[jobs].title));
-    	$('.work-entry:Last').append(HTMLworkDates.replace('%data%',work.jobs[jobs].dates));
-    	$('.work-entry:Last').append(HTMLworkLocation.replace('%data%',work.jobs[jobs].location));
-     	$('.work-entry:Last').append(HTMLworkDescription.replace('%data%',work.jobs[jobs].description));
-
-	}
-}
-
-// call the func to display work history
-displayWork();
-
-function displayEducation() {
-	$('#education').append(HTMLschoolStart);
-	for(schools in education.schools) {
+	}] ,
+    
+    "display" : function() {
+    	$('#education').append(HTMLschoolStart);
+	    for(schools in education.schools) {
     	$('.education-entry').append(HTMLschoolName.replace('%data%',education.schools[schools].name)+HTMLschoolDegree.replace('%data%',education.schools[schools].degree));
     	$('.education-entry:Last').append(HTMLschoolDates.replace('%data%',education.schools[schools].dates));
     	$('.education-entry:Last').append(HTMLschoolLocation.replace('%data%',education.schools[schools].City));
      	$('.education-entry:Last').append(HTMLschoolMajor.replace('%data%',education.schools[schools].major));
 
+	    }
 	}
-}
+};
 
-//display edu details
-displayEducation();
 
 
 //print out click coordinates to console
@@ -199,7 +193,10 @@ function inName(name) {
 
 
 // display the project data on page
+bio.display();
+work.display();
 projects.display();
+education.display();
 
 
 //display map on resume
