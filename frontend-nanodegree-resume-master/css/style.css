@@ -179,6 +179,11 @@ span {
 
 #letsConnect {
   text-align: center;
+
+}
+
+#letsConnect h2 {
+  color: #000000;
 }
 
 @media only screen and (max-width: 1024px) {
